@@ -372,5 +372,221 @@ int main() {
             }
         } while(IDvalid!=1);
         donatur[i].nomorkependudukan[strcspn(donatur[i].nomorkependudukan, "\n")] = '\0';
+
+                // Main Program
+        printf("\n===== DONASI YANG INGIN DISUMBANGKAN =====\n"); 
+        int Donatingloop = 0;
+        int Choicevalid = 0;
+        do {
+            do {
+                printf("Bahan-bahan yang ingin didonasikan:\n[0] Beras dan Bahan Baku \n[1] Makanan Ringan \n[2] Suplemen \n[3] Olahan Hewan \n[4] Sayur dan Buah \nPilihanmu: "); 
+                scanf("%d",&donatur[i].Brgdonasi.barang); 
+                while ((getchar()) != '\n'); 
+                puts("");
+
+                switch(donatur[i].Brgdonasi.barang) {
+                    case Beras_dan_bahan_baku: 
+                        printf("Nama/Jenis/Dekripsi pendek mengenai bahan baku yang ingin didonasikan: "); 
+                        fgets(donatur[i].Brgdonasi.ItemName.namaberas,sizeof(donatur[i].Brgdonasi.ItemName.namaberas),stdin); 
+                        donatur[i].Brgdonasi.ItemName.namaberas[strcspn(donatur[i].Brgdonasi.ItemName.namaberas, "\n")] = '\0';
+
+                        do {
+                            printf("Jumlah %s yang ingin didonasikan (Dalam kg; Apabila ingin dalam bentuk karung, maka ketik 0)             : ",donatur[i].Brgdonasi.ItemName.namaberas); 
+                            scanf("%f",&donatur[i].Brgdonasi.beras.jumlahKgberas);
+                            while ((getchar()) != '\n'); 
+                            // Ganti satuan
+                            if (donatur[i].Brgdonasi.beras.jumlahKgberas == 0) {
+                                printf("Jumlah %s yang ingin didonasikan (Dalam karung (5 Kilogram); Apabila ingin dalam bentuk Kg, maka ketik 0): ",donatur[i].Brgdonasi.ItemName.namaberas); 
+                                scanf("%f",&donatur[i].Brgdonasi.beras.jumlahBuahberas);
+                                while ((getchar()) != '\n'); 
+                                donatur[i].Brgdonasi.beras.jumlahBuahberas *= 5;
+                            }
+                            if (donatur[i].Brgdonasi.beras.jumlahKgberas < 0) {
+                                puts("Jumlah tidak valid. Silakan coba lagi.\n");
+                            }
+                        } while (donatur[i].Brgdonasi.beras.jumlahKgberas <= 0);
+                        break;
+
+                    case Makanan_Ringan:
+                        printf("Nama/Jenis/Dekripsi pendek mengenai makanan ringan yang ingin didonasikan:  "); 
+                        fgets(donatur[i].Brgdonasi.ItemName.namasnack,sizeof(donatur[i].Brgdonasi.ItemName.namasnack),stdin); 
+                        donatur[i].Brgdonasi.ItemName.namasnack[strcspn(donatur[i].Brgdonasi.ItemName.namasnack, "\n")] = '\0';
+
+                        do {
+                            printf("Jumlah %s yang ingin didonasikan (Dalam kg; Apabila ingin dalam bentuk pcs, maka ketik 0)          : ",donatur[i].Brgdonasi.ItemName.namasnack); 
+                            scanf("%f",&donatur[i].Brgdonasi.snack.jumlahKgsnack);
+                            while ((getchar()) != '\n'); 
+                            if (donatur[i].Brgdonasi.snack.jumlahKgsnack == 0) {
+                                printf("Jumlah %s yang ingin didonasikan (Dalam Pcs (70 Gram); Apabila ingin dalam bentuk Kg, maka ketik 0): ",donatur[i].Brgdonasi.ItemName.namasnack); 
+                                scanf("%f",&donatur[i].Brgdonasi.snack.jumlahBuahsnack);
+                                while ((getchar()) != '\n'); 
+                                donatur[i].Brgdonasi.snack.jumlahBuahsnack *= 0.07;
+                            }
+                            if (donatur[i].Brgdonasi.snack.jumlahKgsnack < 0) {
+                                puts("Jumlah tidak valid. Silakan coba lagi.\n");
+                            }
+                        } while (donatur[i].Brgdonasi.snack.jumlahKgsnack <= 0);
+
+                        break;
+
+                    case Suplemen: 
+                        printf("Nama/Jenis/Dekripsi pendek mengenai suplemen yang ingin didonasikan:  "); 
+                        fgets(donatur[i].Brgdonasi.ItemName.namasuple,sizeof(donatur[i].Brgdonasi.ItemName.namasuple),stdin); 
+                        donatur[i].Brgdonasi.ItemName.namasuple[strcspn(donatur[i].Brgdonasi.ItemName.namasuple, "\n")] = '\0';
+
+                        do {
+                            printf("Jumlah %s yang ingin didonasikan (Dalam kg; Apabila ingin dalam bentuk sachet, maka ketik 0)               : ",donatur[i].Brgdonasi.ItemName.namasuple); 
+                            scanf("%f",&donatur[i].Brgdonasi.suple.jumlahKgsuple);
+                            while ((getchar()) != '\n'); 
+                            if (donatur[i].Brgdonasi.suple.jumlahKgsuple == 0) {
+                                printf("Jumlah %s yang ingin didonasikan (Dalam Sachet (40 Gram); Apabila ingin dalam bentuk Kg, maka ketik saja 0): ", donatur[i].Brgdonasi.ItemName.namasuple); 
+                                scanf("%f",&donatur[i].Brgdonasi.suple.jumlahBuahsuple);
+                                while ((getchar()) != '\n'); 
+                                donatur[i].Brgdonasi.suple.jumlahBuahsuple *= 0.04;
+                            }
+                            if (donatur[i].Brgdonasi.suple.jumlahKgsuple < 0) {
+                                puts("Jumlah tidak valid. Silakan coba lagi.\n");
+                            }
+                        } while (donatur[i].Brgdonasi.suple.jumlahKgsuple <= 0);
+                        
+                        break;
+
+                    case Olahan_hewan: 
+                        printf("Nama/Jenis/Dekripsi pendek mengenai makanan olahan hewan yang ingin didonasikan:  "); 
+                        fgets(donatur[i].Brgdonasi.ItemName.namahewan,sizeof(donatur[i].Brgdonasi.ItemName.namahewan),stdin); 
+                        donatur[i].Brgdonasi.ItemName.namahewan[strcspn(donatur[i].Brgdonasi.ItemName.namahewan, "\n")] = '\0';
+
+                        printf("Jumlah %s yang ingin didonasikan (Dalam Kg; Hanya dalam bentuk Kg)    : ",donatur[i].Brgdonasi.ItemName.namahewan); 
+                        scanf("%f",&donatur[i].Brgdonasi.daging.jumlahKgdaging);
+                        while ((getchar()) != '\n'); 
+
+                        break;
+
+                    case Sayur_dan_buah: 
+                        printf("Nama/Jenis/Dekripsi pendek mengenai sayur atau buah yang ingin didonasikan:  "); 
+                        fgets(donatur[i].Brgdonasi.ItemName.namasayur,sizeof(donatur[i].Brgdonasi.ItemName.namasayur),stdin); 
+                        donatur[i].Brgdonasi.ItemName.namasayur[strcspn(donatur[i].Brgdonasi.ItemName.namasayur, "\n")] = '\0';
+
+                        do {
+                            printf("Jumlah %s yang ingin didonasikan (Dalam kg; Apabila ingin dalam bentuk Buah, maka ketik 0)                         : ",donatur[i].Brgdonasi.ItemName.namasayur); 
+                            scanf("%f",&donatur[i].Brgdonasi.sayur.jumlahKgsayur);
+                            while ((getchar()) != '\n'); 
+                            if (donatur[i].Brgdonasi.sayur.jumlahKgsayur == 0) {
+                                printf("Jumlah %s yang ingin didonasikan (Dalam Buah (150 Gram); Apabila Apabila ingin dalam bentuk Kg, maka ketik saja 0) : ",donatur[i].Brgdonasi.ItemName.namasayur); 
+                                scanf("%f",&donatur[i].Brgdonasi.sayur.jumlahBuahsayur);
+                                while ((getchar()) != '\n');
+                                donatur[i].Brgdonasi.sayur.jumlahBuahsayur *= 0.15;
+                            }
+                            if (donatur[i].Brgdonasi.sayur.jumlahKgsayur < 0) {
+                                puts("Jumlah tidak valid. Silakan coba lagi.\n");
+                            }
+                        } while (donatur[i].Brgdonasi.sayur.jumlahKgsayur <= 0);
+
+                        break;
+
+                    default:
+                        puts("Pilihan donasi tidak valid.\n");
+                }
+            } while (donatur[i].Brgdonasi.barang < 0 || donatur[i].Brgdonasi.barang > 4);
+
+            do { 
+                char DonaturChoice[6];
+                printf("Apakah ingin mendonasikan yang lain? (Ya/Tidak) *Ketik sesuai petunjuk: ");
+                scanf("%[^\n]s", DonaturChoice);
+                getchar();
+
+                if (strcmp(DonaturChoice, "Ya") == 0) {
+                    Choicevalid = 1;
+                } else if (strcmp(DonaturChoice, "Tidak") == 0) { 
+                    Donatingloop = 1;
+                    Choicevalid = 1;
+                } else { 
+                    puts("Masukan tidak valid. Ketik 'Ya' atau 'Tidak'.");
+                }
+                puts("");
+            } while (Choicevalid != 1);
+        } while (Donatingloop != 1);
+    };
+
+        float persentase_A = 0.45;
+        float persentase_B = 0.35;
+        float persentase_C = 0.20;
+
+        printf("\n==== Ringkasan Donasi untuk program  ZERO HUNGER FOR AFRICA ====\n"); 
+
+    for (int i = 0; i<Donaturloop; i++) { 
+        printf("\nData Donatur %d:\n", i+1);
+        printf("Nama: %s\n", donatur[i].nama);
+        printf("Umur: %d\n", donatur[i].umur);
+        printf("Negara Asal: %s\n", donatur[i].negaraasal);
+        printf("Kode Telepon: +%d\n", donatur[i].kodetelepon);
+        printf("Nomor Kependudukan: %s\n", donatur[i].nomorkependudukan);
+        printf("Donasi: \n"); 
+
+        if (donatur[i].Brgdonasi.beras.jumlahKgberas > 0 && donatur[i].Brgdonasi.ItemName.namaberas[0] !='\0') {
+            printf("--------\n");
+            printf("%s\n", donatur[i].Brgdonasi.ItemName.namaberas);
+            printf("Jumlah (Kg): %.2f Kg\n", (float) donatur[i].Brgdonasi.beras.jumlahKgberas); 
+            printf("Jumlah (Karung): %.0f Karung\n", (float) (donatur[i].Brgdonasi.beras.jumlahBuahberas / 5));
+        }
+
+        if (donatur[i].Brgdonasi.snack.jumlahKgsnack > 0 && donatur[i].Brgdonasi.ItemName.namasnack[0] !='\0') {
+            printf("--------\n");
+            printf("%s\n", donatur[i].Brgdonasi.ItemName.namasnack);
+            printf("Jumlah (Kg): %.2f Kg\n", donatur[i].Brgdonasi.snack.jumlahKgsnack); 
+            printf("Jumlah (Pcs): %.0f Pcs\n", donatur[i].Brgdonasi.snack.jumlahBuahsnack) / 0.07;
+        }
+
+        if (donatur[i].Brgdonasi.suple.jumlahKgsuple > 0 && donatur[i].Brgdonasi.ItemName.namasuple[0] !='\0') {
+            printf("--------\n");
+            printf("%s\n", donatur[i].Brgdonasi.ItemName.namasuple);
+            printf("Jumlah (Kg): %.2f Kg\n", donatur[i].Brgdonasi.suple.jumlahKgsuple);
+            printf("Jumlah (Sachet): %.0f Sachet \n", donatur[i].Brgdonasi.suple.jumlahBuahsuple / 0.04);
+        }
+
+        if (donatur[i].Brgdonasi.daging.jumlahKgdaging > 0 && donatur[i].Brgdonasi.ItemName.namahewan[0] !='\0') {
+            printf("--------\n");
+            printf("%s\n", donatur[i].Brgdonasi.ItemName.namahewan);
+            printf("Jumlah (Kg): %.2f Kg \n", donatur[i].Brgdonasi.daging.jumlahKgdaging);
+        }
+
+        if (donatur[i].Brgdonasi.sayur.jumlahKgsayur > 0 && donatur[i].Brgdonasi.ItemName.namasayur[0] !='\0') {
+            printf("--------\n");
+            printf("%s\n", donatur[i].Brgdonasi.ItemName.namasayur);
+            printf("Jumlah (Kg): %.2f Kg\n", donatur[i].Brgdonasi.sayur.jumlahKgsayur); 
+            printf("Jumlah (Buah): %.0f Buah\n", donatur[i].Brgdonasi.sayur.jumlahBuahsayur / 0.15);
+        }
+
+        printf("\n");
+        char kodePengiriman[20] = "";  
+        int LenID = strlen(donatur[i].nomorkependudukan); 
+        int digit1 = donatur[i].nomorkependudukan[LenID - 3] - '0';
+        int digit2 = donatur[i].nomorkependudukan[LenID - 2] - '0';
+        int digit3 = donatur[i].nomorkependudukan[LenID - 1] - '0';
+
+        int tigadigitID = digit1 * 100 + digit2 * 10 + digit3;
+
+        strcpy(kodePengiriman, "2025");
+
+        int LenNama = strlen(kodePengiriman);
+        kodePengiriman[LenNama] = toupper(donatur[i].nama[0]);
+        kodePengiriman[LenNama + 1] = '\0';
+
+        char kodetelpPengiriman[5];
+        sprintf(kodetelpPengiriman, "%d", donatur[i].kodetelepon);
+        strcat(kodePengiriman, kodetelpPengiriman);
+        
+        char tigadigitIDPengiriman[4];
+        sprintf(tigadigitIDPengiriman, "%03d", tigadigitID);
+        strcat(kodePengiriman, tigadigitIDPengiriman);
+
+        strcat(kodePengiriman, "0");
+
+    
+        char indeksPengiriman[5];
+        sprintf(indeksPengiriman, "%d", i+1);
+        strcat(kodePengiriman, indeksPengiriman);
+
+        printf("Kode Pengiriman donatur ke %d:%s \n",i+1,kodePengiriman);
     }
 }       
