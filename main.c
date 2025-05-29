@@ -373,7 +373,7 @@ int main() {
         } while(IDvalid!=1);
         donatur[i].nomorkependudukan[strcspn(donatur[i].nomorkependudukan, "\n")] = '\0';
 
-                // Main Program
+        // Main Program
         printf("\n===== DONASI YANG INGIN DISUMBANGKAN =====\n"); 
         int Donatingloop = 0;
         int Choicevalid = 0;
@@ -508,11 +508,11 @@ int main() {
         } while (Donatingloop != 1);
     };
 
-        float persentase_A = 0.45;
-        float persentase_B = 0.35;
-        float persentase_C = 0.20;
+    float persentase_A = 0.45;
+    float persentase_B = 0.35;
+    float persentase_C = 0.20;
 
-        printf("\n==== Ringkasan Donasi untuk program  ZERO HUNGER FOR AFRICA ====\n"); 
+    printf("\n==== Ringkasan Donasi untuk program  ZERO HUNGER FOR AFRICA ====\n"); 
 
     for (int i = 0; i<Donaturloop; i++) { 
         printf("\nData Donatur %d:\n", i+1);
@@ -588,5 +588,229 @@ int main() {
         strcat(kodePengiriman, indeksPengiriman);
 
         printf("Kode Pengiriman donatur ke %d:%s \n",i+1,kodePengiriman);
-    }
-}       
+
+        int Tertinggi1 = 0, Tertinggi2 = 1, Tertinggi3 = 2;
+
+        mosthunger(data, &Tertinggi1, &Tertinggi2, &Tertinggi3);    
+
+        float wargalaper_A=data[Tertinggi1].kelaparan_juta*1000000;
+        float wargalaper_B=data[Tertinggi2].kelaparan_juta*1000000;
+        float wargalaper_C=data[Tertinggi3].kelaparan_juta*1000000;
+        
+        int orang_A=0; 
+        int orang_B=0;
+        int orang_C=0;
+
+        float KgBerasA = donatur[i].Brgdonasi.beras.jumlahKgberas * persentase_A;
+        float KgBerasB = donatur[i].Brgdonasi.beras.jumlahKgberas * persentase_B;
+        float KgBerasC = donatur[i].Brgdonasi.beras.jumlahKgberas * persentase_C;
+
+        if (donatur[i].Brgdonasi.ItemName.namaberas[0] !='\0') {
+            // Feed warga A
+            orang_A += (int) KgBerasA; 
+            float sisa_A = KgBerasA - orang_A;
+            if (sisa_A >= 0.5) {
+                orang_A += 1;
+            }
+            wargalaper_A -= orang_A;
+    
+            // Feed warga B
+            orang_B += (int)KgBerasB;
+            float sisa_B = KgBerasB - orang_B;
+            if (sisa_B >= 0.5) {
+                orang_B += 1;
+            }
+            wargalaper_B -= orang_B;
+            
+            // Feed warga C
+            orang_C += (int) KgBerasC;
+            float sisa_C = KgBerasC - orang_C;
+            if (sisa_C >= 0.5) {
+                orang_C += 1;
+            }
+            wargalaper_C -= orang_C;
+        }
+
+        float KgSnackA = donatur[i].Brgdonasi.snack.jumlahKgsnack * persentase_A;
+        float KgSnackB = donatur[i].Brgdonasi.snack.jumlahKgsnack * persentase_B;
+        float KgSnackC = donatur[i].Brgdonasi.snack.jumlahKgsnack * persentase_C;  
+
+        if (donatur[i].Brgdonasi.snack.jumlahKgsnack > 0 && donatur[i].Brgdonasi.ItemName.namasnack[0] !='\0')  {
+            float snack_per_orang = 0.07;
+            int orang_ASnack = (int)(KgSnackA/ snack_per_orang);
+            orang_A += orang_ASnack;
+            float sisa_A = KgSnackA - (orang_ASnack  *  snack_per_orang);
+
+            if (sisa_A >=  snack_per_orang / 2) {
+                orang_A += 1;
+            }
+            int orang_BSnack = (int)(KgSnackB/ snack_per_orang);
+            orang_B += orang_BSnack;
+            float sisa_B = KgSnackB - (orang_BSnack  *  snack_per_orang);
+
+            if (sisa_B >=  snack_per_orang / 2) {
+            orang_B += 1;
+            }   
+            int orang_CSnack = (int)(KgSnackC/ snack_per_orang);
+            orang_C += orang_CSnack;
+            float sisa_C = KgSnackC - (orang_CSnack  *  snack_per_orang);
+
+            if (sisa_C >= snack_per_orang / 2) {
+                orang_C += 1;
+            }
+        }    
+
+        float KgSupleA = donatur[i].Brgdonasi.suple.jumlahKgsuple * persentase_A;
+        float KgSupleB = donatur[i].Brgdonasi.suple.jumlahKgsuple * persentase_B;
+        float KgSupleC=  donatur[i].Brgdonasi.suple.jumlahKgsuple * persentase_C;
+
+        if (donatur[i].Brgdonasi.suple.jumlahKgsuple > 0 && donatur[i].Brgdonasi.ItemName.namasuple[0] !='\0') {              
+            float suple_per_orang = 0.04;
+            int orang_ASuple=(int)(KgSupleA/ suple_per_orang);
+            orang_A += orang_ASuple;
+            float sisa_A =KgSupleA - (orang_ASuple  *  suple_per_orang);
+            if (sisa_A >=  suple_per_orang / 2) {
+                orang_A += 1;
+            }
+                
+            int orang_BSuple = (int)(KgSupleB/ suple_per_orang);
+            orang_B += orang_BSuple;
+            float sisa_B =KgSupleB - (orang_BSuple  *  suple_per_orang);
+            if (sisa_B >=  suple_per_orang / 2) {
+                orang_B += 1;
+            }
+                
+            int orang_CSuple=(int)(KgSupleC/ suple_per_orang);
+            orang_C += orang_CSuple;
+            float sisa_C =KgSupleC - (orang_CSuple  *  suple_per_orang);
+            if (sisa_C>=  suple_per_orang / 2) {
+                orang_C += 1;
+            }
+        }            
+            
+        float KgDagingA = donatur[i].Brgdonasi.daging.jumlahKgdaging * persentase_A;
+        float KgDagingB = donatur[i].Brgdonasi.daging.jumlahKgdaging * persentase_B;
+        float KgDagingC =  donatur[i].Brgdonasi.daging.jumlahKgdaging * persentase_C;
+                    
+                    
+        if (donatur[i].Brgdonasi.daging.jumlahKgdaging > 0 && donatur[i].Brgdonasi.ItemName.namahewan[0] !='\0') {              
+            float daging_per_orang = 0.4;
+            int orang_ADaging = (int)(KgDagingA/ daging_per_orang);
+            orang_A += orang_ADaging;
+            float sisa_A = KgDagingA - (orang_ADaging  *daging_per_orang);
+            if (sisa_A >= daging_per_orang / 2) {
+                orang_A += 1;
+            }
+                
+            int orang_BDaging = (int)(KgDagingB/ daging_per_orang);
+            orang_B += orang_BDaging;
+            float sisa_B = KgDagingB - (orang_BDaging  *daging_per_orang);
+            if (sisa_B >= daging_per_orang / 2) {
+                orang_B += 1;
+            }
+                
+            int orang_CDaging = (int)(KgDagingC/ daging_per_orang);
+            orang_C += orang_CDaging;
+            float sisa_C = KgDagingC - (orang_CDaging  *daging_per_orang);
+            if (sisa_C >= daging_per_orang / 2) {
+                orang_C += 1;
+            }
+        }            
+
+        float KgSayurA = donatur[i].Brgdonasi.sayur.jumlahKgsayur   * persentase_A;
+        float KgSayurB = donatur[i].Brgdonasi.sayur.jumlahKgsayur  * persentase_B;
+        float KgSayurC = donatur[i].Brgdonasi.sayur.jumlahKgsayur  * persentase_C;                
+
+
+        if (donatur[i].Brgdonasi.beras.jumlahKgberas > 0 && donatur[i].Brgdonasi.ItemName.namasayur[0] !='\0') {
+            float sayur_per_orang = 0.15;
+            int orang_ASayur=(int)(KgSayurA/ sayur_per_orang);
+            orang_A += orang_ASayur;
+            float sisa_A =KgSayurA - (orang_ASayur  *  sayur_per_orang);
+            if (sisa_A >=  sayur_per_orang / 2) {
+                orang_A += 1;
+            }
+
+            int orang_BSayur=(int)(KgSayurB/ sayur_per_orang);
+            orang_B += orang_BSayur;
+            float sisa_B =KgSayurB - (orang_BSayur  *  sayur_per_orang);
+            if (sisa_B >=  sayur_per_orang / 2) {
+                orang_B += 1;
+            }
+
+            int orang_CSayur=(int)(KgSayurC/ sayur_per_orang);
+            orang_C += orang_CSayur;
+            float sisa_C =KgSayurC - (orang_CSayur  *  sayur_per_orang);
+            if (sisa_C >=  sayur_per_orang / 2) {
+                orang_C += 1;
+            }
+        }
+
+
+        printf("Rincian donasi: \n"); 
+        printf("===============\n"); 
+        for (int j = 0; j < 3; j++) {
+            float sumbanganBeras = 0, sumbanganSnack = 0, sumbanganSuple = 0, sumbanganDaging = 0, sumbanganSayur = 0;
+            switch(j) {
+                case 0:
+                    printf("Donasi ke %s \n",data[Tertinggi1].nama);
+                    sumbanganBeras = KgBerasA;
+                    sumbanganSnack = KgSnackA;
+                    sumbanganSuple = KgSupleA;
+                    sumbanganDaging = KgDagingA;
+                    sumbanganSayur = KgSayurA;
+                    break;
+                case 1:
+                    printf("Donasi ke %s \n",data[Tertinggi2].nama); 
+                    sumbanganBeras = KgBerasB;
+                    sumbanganSnack = KgSnackB;
+                    sumbanganSuple = KgSupleB;
+                    sumbanganDaging = KgDagingB;
+                    sumbanganSayur = KgSayurB;
+                    break;
+                case 2:
+                    printf("Donasi ke %s \n",data[Tertinggi3].nama); 
+                    sumbanganBeras = KgBerasC;
+                    sumbanganSnack = KgSnackC;
+                    sumbanganSuple = KgSupleC;
+                    sumbanganDaging = KgDagingC;
+                    sumbanganSayur = KgSayurC;
+                    break;
+            }
+
+            if (donatur[i].Brgdonasi.beras.jumlahKgberas > 0 && donatur[i].Brgdonasi.ItemName.namaberas[0] !='\0') {
+                printf("Jumlah (Kg) %s: %.2lf\n", donatur[i].Brgdonasi.ItemName.namaberas, sumbanganBeras); 
+            }
+            if (donatur[i].Brgdonasi.snack.jumlahKgsnack > 0 && donatur[i].Brgdonasi.ItemName.namasnack[0] !='\0') {
+                printf("Jumlah (Kg) %s: %.2lf\n",donatur[i].Brgdonasi.ItemName.namasnack, sumbanganSnack);
+            }
+            if (donatur[i].Brgdonasi.suple.jumlahKgsuple > 0 && donatur[i].Brgdonasi.ItemName.namasuple[0] !='\0') {
+                printf("Jumlah (Kg) %s: %.2lf\n",donatur[i].Brgdonasi.ItemName.namasuple, sumbanganSuple); 
+            }
+            if (donatur[i].Brgdonasi.daging.jumlahKgdaging > 0 && donatur[i].Brgdonasi.ItemName.namahewan[0] !='\0') {
+                printf("Jumlah (Kg) %s: %.2lf\n",donatur[i].Brgdonasi.ItemName.namahewan,sumbanganDaging); 
+            }
+            if (donatur[i].Brgdonasi.sayur.jumlahKgsayur > 0 && donatur[i].Brgdonasi.ItemName.namasayur[0] !='\0') {
+                printf("Jumlah (Kg) %s: %.2lf\n",donatur[i].Brgdonasi.ItemName.namasayur,sumbanganSayur); 
+            }
+            puts("");
+        }
+
+        data[Tertinggi1].kelaparan_juta = wargalaper_A / 1000000;
+        printf("Jumlah orang yang dibantu: %d orang\n", orang_A);
+        data[Tertinggi2].kelaparan_juta = wargalaper_B / 1000000;
+        printf("Jumlah orang yang dibantu: %d orang\n", orang_B);
+        data[Tertinggi3].kelaparan_juta = wargalaper_C / 1000000;
+        printf("Jumlah orang yang dibantu: %d orang\n", orang_C);
+        printf("====================================================\n\n");
+    };
+
+    free(donatur);
+    free(Asia); 
+    free(Amerika); 
+    free(Oceania);
+    free(Eropa);
+    free(Afrika); 
+
+    return 0; 
+}
