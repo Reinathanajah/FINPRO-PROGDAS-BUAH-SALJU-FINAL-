@@ -690,7 +690,7 @@ int main() {
             
         float KgDagingA = donatur[i].Brgdonasi.daging.jumlahKgdaging * persentase_A;
         float KgDagingB = donatur[i].Brgdonasi.daging.jumlahKgdaging * persentase_B;
-        float KgDagingC =  donatur[i].Brgdonasi.daging.jumlahKgdaging * persentase_C;
+        float KgDagingC = donatur[i].Brgdonasi.daging.jumlahKgdaging * persentase_C;
                     
                     
         if (donatur[i].Brgdonasi.daging.jumlahKgdaging > 0 && donatur[i].Brgdonasi.ItemName.namahewan[0] !='\0') {              
@@ -717,12 +717,12 @@ int main() {
             }
         }            
 
-        float KgSayurA = donatur[i].Brgdonasi.sayur.jumlahKgsayur   * persentase_A;
+        float KgSayurA = donatur[i].Brgdonasi.sayur.jumlahKgsayur  * persentase_A;
         float KgSayurB = donatur[i].Brgdonasi.sayur.jumlahKgsayur  * persentase_B;
         float KgSayurC = donatur[i].Brgdonasi.sayur.jumlahKgsayur  * persentase_C;                
 
 
-        if (donatur[i].Brgdonasi.beras.jumlahKgberas > 0 && donatur[i].Brgdonasi.ItemName.namasayur[0] !='\0') {
+        if (donatur[i].Brgdonasi.sayur.jumlahBuahsayur > 0 && donatur[i].Brgdonasi.ItemName.namasayur[0] !='\0') {
             float sayur_per_orang = 0.15;
             int orang_ASayur=(int)(KgSayurA/ sayur_per_orang);
             orang_A += orang_ASayur;
@@ -745,7 +745,6 @@ int main() {
                 orang_C += 1;
             }
         }
-
 
         printf("Rincian donasi: \n"); 
         printf("===============\n"); 
